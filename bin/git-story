@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+dir = `git rev-parse --show-toplevel`.strip
+
+`touch "#{dir}/.git/hooks/prepare-commit-msg"`
+
+`chmod "+x" "#{dir}/.git/hooks/prepare-commit-msg"`
+
+`echo "#! /usr/bin/ruby\n\nFile.write(ARGV[0], (ARGV[2] || '') + (\\"\\\\\\\\n\\\\\\\\n[##{ARGV[0]}]\\"))" > "#{dir}/.git/hooks/prepare-commit-msg"`
